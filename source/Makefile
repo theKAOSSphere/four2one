@@ -23,17 +23,17 @@ COMPLETE_INSTALL_PATH = $(DESTDIR)$(INSTALL_PATH)/$(BUNDLE)
 all: $(PLUGIN)
 
 $(PLUGIN): $(OBJ)
-    $(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 %.o: %.cpp
-    $(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 install: $(PLUGIN)
-    mkdir -p $(COMPLETE_INSTALL_PATH)
-    cp $(PLUGIN) $(COMPLETE_INSTALL_PATH)/
-    cp -r $(BUNDLE)/* $(COMPLETE_INSTALL_PATH)/
+	mkdir -p $(COMPLETE_INSTALL_PATH)
+	cp $(PLUGIN) $(COMPLETE_INSTALL_PATH)/
+	cp -r $(BUNDLE)/* $(COMPLETE_INSTALL_PATH)/
 
 clean:
-    -rm -f $(OBJ) $(PLUGIN)
-
+	-rm -f $(OBJ) $(PLUGIN)
+	
 .PHONY: all clean install
