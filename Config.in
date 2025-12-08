@@ -1,0 +1,6 @@
+config BR2_PACKAGE_FOUR2ONE
+	bool "four2one"
+	help
+	  Four2One LV2 plugin.
+
+	  https://github.com/theKAOSSphere/four2one
