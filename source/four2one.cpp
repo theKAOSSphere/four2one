@@ -102,14 +102,11 @@ static void run(LV2_Handle instance, uint32_t n_samples)
         return;
     }
 
-    bool toggle1, toggle2, toggle3, toggle4;
-    float mix_law;
-    
-    toggle1 = (*(self->toggle1) > 0.5f);
-    toggle2 = (*(self->toggle2) > 0.5f);
-    toggle3 = (*(self->toggle3) > 0.5f);
-    toggle4 = (*(self->toggle4) > 0.5f);
-    mix_law = *(self->mixLaw);
+    const float mix_law = *(self->mixLaw);
+    const bool toggle1  = (*(self->toggle1) > 0.5f);
+    const bool toggle2  = (*(self->toggle2) > 0.5f);
+    const bool toggle3  = (*(self->toggle3) > 0.5f);
+    const bool toggle4  = (*(self->toggle4) > 0.5f);
     
     if (!self->input1 || !self->input2 || !self->input3 || !self->input4 || !self->output) 
     {
@@ -124,6 +121,7 @@ static void run(LV2_Handle instance, uint32_t n_samples)
     const float* in2 = self->input2;
     const float* in3 = self->input3;
     const float* in4 = self->input4;
+    float*       out = self->output;
 
     for (uint32_t i = 0; i < n_samples; i++) 
     {
@@ -131,23 +129,23 @@ static void run(LV2_Handle instance, uint32_t n_samples)
         float total_weight = 0.0f;
 
         if (toggle1) {
-            float weight = (mix_law < 1e-6f) ? 1.0f : std::pow(std::abs(*(in1 + i)), mix_law);
-            out_sample += (*(in1 + i)) * weight;
+            float weight = (mix_law < 1e-6f) ? 1.0f : std::pow(std::abs(in1[i]), mix_law);
+            out_sample += in1[i] * weight;
             total_weight += weight;
         }
         if (toggle2) {
-            float weight = (mix_law < 1e-6f) ? 1.0f : std::pow(std::abs(*(in2 + i)), mix_law);
-            out_sample += (*(in2 + i)) * weight;
+            float weight = (mix_law < 1e-6f) ? 1.0f : std::pow(std::abs(in2[i]), mix_law);
+            out_sample += in2[i] * weight;
             total_weight += weight;
         }
         if (toggle3) {
-            float weight = (mix_law < 1e-6f) ? 1.0f : std::pow(std::abs(*(in3 + i)), mix_law);
-            out_sample += (*(in3 + i)) * weight;
+            float weight = (mix_law < 1e-6f) ? 1.0f : std::pow(std::abs(in3[i]), mix_law);
+            out_sample += in3[i] * weight;
             total_weight += weight;
         }
         if (toggle4) {
-            float weight = (mix_law < 1e-6f) ? 1.0f : std::pow(std::abs(*(in4 + i)), mix_law);
-            out_sample += (*(in4 + i)) * weight;
+            float weight = (mix_law < 1e-6f) ? 1.0f : std::pow(std::abs(in4[i]), mix_law);
+            out_sample += in4[i] * weight;
             total_weight += weight;
         }
 
@@ -155,7 +153,7 @@ static void run(LV2_Handle instance, uint32_t n_samples)
             out_sample /= total_weight;
         }
 
-        *(self->output + i) = out_sample;
+        out[i] = out_sample;
     }
 }
 
