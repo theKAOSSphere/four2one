@@ -1,0 +1,9 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+
+<https://github.com/theKAOSSphere/four2one>
+    a lv2:Plugin ,
+        lv2:UtilityPlugin ;
+    lv2:binary <kaoss-four2one.so> ;
+    rdfs:seeAlso <kaoss-four2one.ttl> .
