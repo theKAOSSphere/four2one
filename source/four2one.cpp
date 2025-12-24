@@ -1,5 +1,5 @@
 //
-// integra.cpp - Integra & Pulverize LV2 Plugins
+// four2one.cpp - Four2One LV2 Plugins
 // Copyright (C) 2025 KAOSS
 // SPDX-License-Identifier: GPL-3.0-or-later
 //
